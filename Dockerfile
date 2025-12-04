@@ -22,13 +22,11 @@ RUN pip install --no-cache-dir numpy==1.24.4 scipy==1.10.1 scikit-learn==1.3.0 p
 RUN apt-get update && apt-get install -y --no-install-recommends gcc g++ python3-dev git \
     libopenblas-dev liblapack-dev && rm -rf /var/lib/apt/lists/*
 
-# Clone DMD repo
+## Clone DMD repo
 RUN git clone --depth 1 https://github.com/Yu-Yy/DMD.git /opt/DMD && \
     git clone --depth 1 https://github.com/youngjetduan/fptools.git /opt/DMD/fptools
 
-WORKDIR /opt/DMD
-RUN python3 -m pip install --no-cache-dir -e .
-
+## Create logs folder
 RUN mkdir -p /opt/DMD/logs
 
 ENV PYTHONUNBUFFERED=1
@@ -36,5 +34,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PATH="/opt/DMD:${PATH}"
 
 WORKDIR /opt/DMD
+
 CMD ["/bin/bash"]
+
 
